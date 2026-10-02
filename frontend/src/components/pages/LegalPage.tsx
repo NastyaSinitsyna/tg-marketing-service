@@ -10,7 +10,6 @@ import mockLegalContent from '@/shared/mocks/legalContent';
 import { useSearchParams } from 'react-router-dom';
 
 const LegalPage = ({ legalContent = mockLegalContent }: LegalPageProps) => {
-  // const [tab, setTab] = React.useState('privacy');
   const [searchParams, setSearchParams] = useSearchParams();
   const tab = searchParams.get('tab') || 'privacy';
 
