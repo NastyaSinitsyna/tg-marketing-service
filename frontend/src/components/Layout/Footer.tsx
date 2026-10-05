@@ -1,6 +1,9 @@
 import { Anchor, Avatar, Badge, Box, Group, SimpleGrid, Stack, Text, Title } from '@mantine/core';
 import { useNavigate } from 'react-router-dom';
 
+/**
+ * Added links to data['Правовое'] to navigate to the LegalPage via the selected tab.
+ */
 const data = [
   {
     title: 'Продукт',
@@ -30,6 +33,10 @@ const data = [
   },
 ];
 
+/**
+ * Changed onCLick handler to navigate to the LegalPage.
+ * The condition prevents navigation to pages without prepared links.
+ */
 export function Footer() {
   const navigate = useNavigate();
   const groups = data.map((group) => {

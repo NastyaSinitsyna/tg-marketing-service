@@ -9,10 +9,17 @@ import type { LegalPageProps } from '@/types/legal';
 import mockLegalContent from '@/shared/mocks/legalContent';
 import { useSearchParams } from 'react-router-dom';
 
+/**
+ * Used tab form query parameter to display the corresponding content.
+ */
 const LegalPage = ({ legalContent = mockLegalContent }: LegalPageProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const tab = searchParams.get('tab') || 'privacy';
 
+/**
+ * fixed onChange handler to update the query parameter instead of the state.
+ * Added CSS properties to the SegmentedControl component to match the design.
+ */
   return (
     <Container>
       <Title order={1} mb="lg">
