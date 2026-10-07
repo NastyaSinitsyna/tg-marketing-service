@@ -8,13 +8,38 @@ import {
 import type { LegalPageProps } from '@/types/legal';
 import mockLegalContent from '@/shared/mocks/legalContent';
 import { useSearchParams } from 'react-router-dom';
+import { useEffect } from 'react';
 
 /**
  * Used tab form query parameter to display the corresponding content.
+ * The default tab is set to 'privacy' for the query parameter is not present or invalid.
+ * SegmentedControl data is defined as an array of objects with label and value properties.
+ * It is used both for tabs render and for the tab determination via checkTab function
+ * setSearchParams in UseEffect fixes URL for the default tab in case of invalid requested tab.
  */
+const segmentedControlData: {label: string, value: string}[] = [
+  { label: 'Конфиденциальность', value: 'privacy' },
+  { label: 'Соглашение', value: 'terms' },
+  { label: 'Оферта', value: 'offer' },
+];
+
+const defaultTab = 'privacy';
+
+function checkTab(tab: string): boolean {
+  return segmentedControlData.some(({ value }) => value === tab);
+}
+
 const LegalPage = ({ legalContent = mockLegalContent }: LegalPageProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const tab = searchParams.get('tab') || 'privacy';
+  const requestedTab = searchParams.get('tab') ?? defaultTab;
+  const isTabValid = checkTab(requestedTab);
+  const tab = isTabValid ? requestedTab : defaultTab;
+
+  useEffect(() => {
+    if (!isTabValid) {
+      setSearchParams({ tab: defaultTab }, { replace: true });
+    }
+  }, [isTabValid, setSearchParams]);
 
 /**
  * fixed onChange handler to update the query parameter instead of the state.
@@ -26,11 +51,7 @@ const LegalPage = ({ legalContent = mockLegalContent }: LegalPageProps) => {
         Правовая информация
       </Title>
       <SegmentedControl
-        data={[
-          { label: 'Конфиденциальность', value: 'privacy' },
-          { label: 'Соглашение', value: 'terms' },
-          { label: 'Оферта', value: 'offer' },
-        ]}
+        data={segmentedControlData}
         value={tab}
         onChange={(v: string) => setSearchParams({ tab: v })}
         mb="lg"
