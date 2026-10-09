@@ -2,7 +2,7 @@ import { Anchor, Avatar, Badge, Box, Group, SimpleGrid, Stack, Text, Title } fro
 import { useNavigate } from 'react-router-dom';
 
 /**
- * Added links to data['Правовое'] to navigate to the LegalPage via the selected tab.
+ * Добавлены ссылки на data['Правовое'] для навигации на LegalPage через выбранную вкладку.
  */
 const data = [
   {
@@ -34,8 +34,8 @@ const data = [
 ];
 
 /**
- * Changed onCLick handler to navigate to the LegalPage.
- * The condition prevents navigation to pages without prepared links.
+ * Изменен обработчик onCLick для навигации на LegalPage.
+ * В обработчик добавлено условие, которое предотвращает навигацию на страницы без подготовленных ссылок.
  */
 export function Footer() {
   const navigate = useNavigate();

@@ -11,11 +11,11 @@ import { useSearchParams } from 'react-router-dom';
 import { useEffect } from 'react';
 
 /**
- * Used tab form query parameter to display the corresponding content.
- * The default tab is set to 'privacy' for the query parameter is not present or invalid.
- * SegmentedControl data is defined as an array of objects with label and value properties.
- * It is used both for tabs render and for the tab determination via checkTab function
- * setSearchParams in UseEffect fixes URL for the default tab in case of invalid requested tab.
+ * Для отображения соответствующего контента используется параметр tab из query string.
+ * По умолчанию tab имеет значение 'privacy', если параметр запроса отсутствует или недействителен.
+ * Данные компонента SegmentedControl определены отдельно в массиве объектов со свойствами label и value.
+ * Массив используется для рендеринга вкладок и проверки допустимости запрашиваемой вкладки через функцию checkTab.
+ * В случае недопустимого значения tab, setSearchParams в UseEffect исправляет URL на вкладку по умолчанию.
  */
 const segmentedControlData: {label: string, value: string}[] = [
   { label: 'Конфиденциальность', value: 'privacy' },
@@ -42,8 +42,8 @@ const LegalPage = ({ legalContent = mockLegalContent }: LegalPageProps) => {
   }, [isTabValid, setSearchParams]);
 
 /**
- * fixed onChange handler to update the query parameter instead of the state.
- * Added CSS properties to the SegmentedControl component to match the design.
+ * Исправлен обработчик onChange для обновления параметра запроса вместо состояния.
+ * Добавлены CSS свойства для компонента SegmentedControl, чтобы соответствовать дизайну.
  */
   return (
     <Container>
